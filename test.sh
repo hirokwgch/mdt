@@ -26,3 +26,21 @@ assert_equal() {
         echo ""
     fi 
 }
+
+# テストケース
+test_main() {
+    local actual=`echo -e "menu,price\nmelon,500" | mdt`
+    local expected=`cat <<EOF
+| menu  | price |
+| ----- | ----- |
+| melon | 500   |
+EOF
+`
+    assert_equal "${expected}" "${actual}"
+}
+
+echo "=== Start test ==="
+test_result=`test_main`
+
+echo "=== Test result ==="
+echo -e "${test_result}"
