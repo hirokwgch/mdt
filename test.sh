@@ -28,8 +28,19 @@ assert_equal() {
 }
 
 # テストケース
+setup() {
+    go build
+    chmod +x mdt
+    PATH="${PATH}:`pwd`"
+}
+
 test_main() {
-    local actual=`echo -e "menu,price\nmelon,500" | mdt`
+    local input=`cat <<EOF
+menu,price
+melon,500    
+EOF
+`
+    local actual=`echo -e "${input}" | mdt`
     local expected=`cat <<EOF
 | menu  | price |
 | ----- | ----- |
@@ -39,8 +50,23 @@ EOF
     assert_equal "${expected}" "${actual}"
 }
 
-echo "=== Start test ==="
-test_result=`test_main`
+clean() {
+    rm mdt
+}
 
-echo "=== Test result ==="
+# Main
+echo "=== Setup ==="
+setup
+echo ""
+
+echo "=== Execute test ==="
+test_result=`test_main`
+echo ""
+
+echo "=== Show test result ==="
 echo -e "${test_result}"
+echo ""
+
+echo "=== Clean ==="
+clean
+echo ""
