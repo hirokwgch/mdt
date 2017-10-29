@@ -21,6 +21,8 @@ import (
 //    書くワードを:始まりで、最大文字列になるように-を入れる
 // 3. 3行目以降を出力する。
 //    配列[1][*]以降を1行目と同じフォーマットで出力する
+
+// csvを2次元配列にして返す
 func parseCsv(fp *os.File) [][]string {
 	reader := csv.NewReader(fp)
 	// reader.Comma = '\t'
@@ -30,8 +32,36 @@ func parseCsv(fp *os.File) [][]string {
 	if err != nil {
 		log.Fatalf("Failed: Cannot parse input strings. err=\"%s\"", err)
 	}
-	fmt.Println(records)
 	return records
+}
+
+func getMaxWordSizes(matrix [][]string) []int {
+	numberOfCol := len(matrix[0])
+	maxWordSizes := make([]int, numberOfCol)
+	for i := 0; i < numberOfCol; i++ {
+		col := getCol(matrix, i)
+		maxWordSizes[i] = getMaxWordSize(col)
+	}
+	return maxWordSizes
+}
+
+func getCol(matrix [][]string, index int) []string {
+	numberOfRow := len(matrix)
+	column := make([]string, numberOfRow)
+	for i := 0; i < numberOfRow; i++ {
+		column[i] = matrix[i][index]
+	}
+	return column
+}
+
+func getMaxWordSize(words []string) int {
+	max := 0
+	for i := 0; i < len(words); i++ {
+		if len(words[i]) > max {
+			max = len(words[i])
+		}
+	}
+	return max
 }
 
 func main() {
