@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -77,6 +78,19 @@ func insertBar(words []string) string {
 	return "|" + inserted + "|"
 }
 
+func padWord(word string, size int) string {
+	format := " %-" + strconv.Itoa(size) + "s "
+	return fmt.Sprintf(format, word)
+}
+
+func getMDMatrixLine(inputWords []string, maxWordSizes []int) string {
+	var padedWords []string
+	for i, word := range inputWords {
+		padedWords = append(padedWords, padWord(word, maxWordSizes[i]))
+	}
+	return insertBar(padedWords)
+}
+
 func main() {
 
 	//標準入力の読み込み
@@ -98,6 +112,5 @@ func main() {
 	//各列の最大文字数
 	maxWordSizes := getMaxWordSizes(matrix)
 
-	fmt.Println(matrix)
 	fmt.Printf("maxWordSizes: %s", maxWordSizes)
 }

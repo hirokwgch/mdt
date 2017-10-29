@@ -60,3 +60,29 @@ func TestInsertBar(t *testing.T) {
 		t.Errorf("縦棒の挿入が間違っている. expected=\"|menu|price|\", actual=\"%s\"", actual)
 	}
 }
+
+func TestPadWord(t *testing.T) {
+	var actual string
+	actual = padWord("word", 9)
+
+	// 1. wordの後ろに、最大文字列のサイズになるまで空白でパディング
+	// 2. 上の文字列の前後に空白をひとつずついれる
+	expected := " word      "
+
+	if actual != expected {
+		t.Errorf("パディングが間違っている. expected=\"%s\", actual=\"%s\"", expected, actual)
+	}
+}
+
+func TestGetMDMatrixLine(t *testing.T) {
+	inputWords := []string{"menu", "price"}
+	maxWordSizes := []int{5, 9}
+
+	var actual string
+	actual = getMDMatrixLine(inputWords, maxWordSizes)
+	expected := "| menu  | price     |"
+
+	if actual != expected {
+		t.Errorf("マークダウンの行生成が間違っている. expected=\"%s\", actual=\"%s\"", expected, actual)
+	}
+}
