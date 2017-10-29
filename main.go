@@ -23,6 +23,10 @@ import (
 // 3. 3行目以降を出力する。
 //    配列[1][*]以降を1行目と同じフォーマットで出力する
 
+//
+// 入力フェイズの関数
+//
+
 // csvを2次元配列にして返す
 func parseCsv(r io.Reader) [][]string {
 	reader := csv.NewReader(r)
@@ -63,6 +67,14 @@ func getMaxWordSize(words []string) int {
 		}
 	}
 	return max
+}
+
+//
+// 出力フェイズの関数
+//
+func insertBar(words []string) string {
+	inserted := strings.Join(words, "|")
+	return "|" + inserted + "|"
 }
 
 func main() {

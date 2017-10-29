@@ -5,8 +5,6 @@ import (
 	"testing"
 )
 
-// test helper
-
 func TestParseCsv(t *testing.T) {
 	input := strings.NewReader("menu,price\nmelon,1000")
 	var actual [][]string
@@ -50,5 +48,15 @@ func TestGetMaxWordSize(t *testing.T) {
 
 	if actual != 10 {
 		t.Errorf("最大サイズが間違っている. expected=10, actual=%d", actual)
+	}
+}
+
+func TestInsertBar(t *testing.T) {
+	input := []string{"menu", "price"}
+	var actual string
+	actual = insertBar(input)
+
+	if actual != "|menu|price|" {
+		t.Errorf("縦棒の挿入が間違っている. expected=\"|menu|price|\", actual=\"%s\"", actual)
 	}
 }
