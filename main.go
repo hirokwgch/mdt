@@ -2,11 +2,12 @@ package main
 
 import (
 	"bufio"
-	"container/list"
 	"encoding/csv"
 	"fmt"
+	"io"
 	"log"
 	"os"
+	"strings"
 )
 
 // やりかた
@@ -23,8 +24,8 @@ import (
 //    配列[1][*]以降を1行目と同じフォーマットで出力する
 
 // csvを2次元配列にして返す
-func parseCsv(fp *os.File) [][]string {
-	reader := csv.NewReader(fp)
+func parseCsv(r io.Reader) [][]string {
+	reader := csv.NewReader(r)
 	// reader.Comma = '\t'
 	// reader.LazyQuotes = true // ダブルクオートを厳密にチェックしない！
 	var records [][]string
@@ -66,18 +67,25 @@ func getMaxWordSize(words []string) int {
 
 func main() {
 
-	in := list.New()
+	//標準入力の読み込み
+	var inputStrings []string
 	s := bufio.NewScanner(os.Stdin)
 	for s.Scan() {
-		in.PushBack(s.Text())
-	}
-
-	for e := in.Front(); e != nil; e = e.Next() {
-		fmt.Println(e.Value)
+		inputStrings = append(inputStrings, s.Text())
 	}
 
 	if s.Err() != nil {
 		log.Fatal(s.Err())
 	}
 
+	inputString := strings.Join(inputStrings, "\n")
+
+	//csvパース
+	matrix := parseCsv(strings.NewReader(inputString))
+
+	//各列の最大文字数
+	maxWordSizes := getMaxWordSizes(matrix)
+
+	fmt.Println(matrix)
+	fmt.Printf("maxWordSizes: %s", maxWordSizes)
 }

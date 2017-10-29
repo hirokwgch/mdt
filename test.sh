@@ -37,7 +37,7 @@ setup() {
 test_main() {
     local input=`cat <<EOF
 menu,price
-melon,500    
+melon,500
 EOF
 `
     local actual=`echo -e "${input}" | mdt`
