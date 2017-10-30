@@ -86,3 +86,45 @@ func TestGetMDMatrixLine(t *testing.T) {
 		t.Errorf("マークダウンの行生成が間違っている. expected=\"%s\", actual=\"%s\"", expected, actual)
 	}
 }
+
+func TestGetMDM2ndLine_Left(t *testing.T) {
+
+	matrixType := "left"
+	maxWordSizes := []int{3, 9}
+
+	var actual string
+	actual = getMDM2ndLine(matrixType, maxWordSizes)
+	expected := "| :-- | :--       |"
+
+	if actual != expected {
+		t.Errorf("マークダウンの表の二行目の出力が間違っている. matrixType=\"%s\", expected=\"%s\", actual=\"%s\"", matrixType, expected, actual)
+	}
+}
+
+func TestGetMDM2ndLine_Right(t *testing.T) {
+
+	matrixType := "right"
+	maxWordSizes := []int{3, 9}
+
+	var actual string
+	actual = getMDM2ndLine(matrixType, maxWordSizes)
+	expected := "| --: | --:       |"
+
+	if actual != expected {
+		t.Errorf("マークダウンの表の二行目の出力が間違っている. matrixType=\"%s\", expected=\"%s\", actual=\"%s\"", matrixType, expected, actual)
+	}
+}
+
+func TestGetMDM2ndLine_Center(t *testing.T) {
+
+	matrixType := "center"
+	maxWordSizes := []int{3, 9}
+
+	var actual string
+	actual = getMDM2ndLine(matrixType, maxWordSizes)
+	expected := "| :-: | :-:       |"
+
+	if actual != expected {
+		t.Errorf("マークダウンの表の二行目の出力が間違っている. matrixType=\"%s\", expected=\"%s\", actual=\"%s\"", matrixType, expected, actual)
+	}
+}

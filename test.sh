@@ -43,7 +43,7 @@ EOF
     local actual=`echo -e "${input}" | mdt`
     local expected=`cat <<EOF
 | menu  | price |
-| ----- | ----- |
+| :--   | :--   |
 | melon | 500   |
 EOF
 `

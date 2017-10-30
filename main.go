@@ -91,6 +91,29 @@ func getMDMatrixLine(inputWords []string, maxWordSizes []int) string {
 	return insertBar(padedWords)
 }
 
+// matrixType: left, center, right
+func getMDM2ndLine(matrixType string, maxWordSizes []int) string {
+	var word string
+
+	switch matrixType {
+	case "left":
+		word = ":--"
+	case "right":
+		word = "--:"
+	case "center":
+		word = ":-:"
+	default:
+		word = ":--"
+	}
+
+	numberOfCol := len(maxWordSizes)
+	var words []string
+	for i := 0; i < numberOfCol; i++ {
+		words = append(words, word)
+	}
+	return getMDMatrixLine(words, maxWordSizes)
+}
+
 func main() {
 
 	//標準入力の読み込み
@@ -112,5 +135,9 @@ func main() {
 	//各列の最大文字数
 	maxWordSizes := getMaxWordSizes(matrix)
 
-	fmt.Printf("maxWordSizes: %s", maxWordSizes)
+	//1行目を出力する。
+	fmt.Printf("%s\n", getMDMatrixLine(matrix[0], maxWordSizes))
+
+	//2行目を出力する。
+	fmt.Printf("%s\n", getMDM2ndLine("left", maxWordSizes))
 }
