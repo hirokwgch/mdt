@@ -1,9 +1,11 @@
-mdt: mark down table
+# mdt : mark down table generator
 
-#概要
+## 概要
+
 csv形式のデータを、Markdownの表形式に変換して出力します。
 
-#例
+## 例
+
 ```bash
 $ cat <<EOF | mdt
 > menu,price
