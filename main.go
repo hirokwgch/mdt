@@ -114,6 +114,14 @@ func getMDM2ndLine(matrixType string, maxWordSizes []int) string {
 	return getMDMatrixLine(words, maxWordSizes)
 }
 
+func getMDMDataLines(input [][]string, maxWordSizes []int) []string {
+	var lines []string
+	for i := 1; i < len(input); i++ {
+		lines = append(lines, getMDMatrixLine(input[i], maxWordSizes))
+	}
+	return lines
+}
+
 func main() {
 
 	//標準入力の読み込み
@@ -136,8 +144,13 @@ func main() {
 	maxWordSizes := getMaxWordSizes(matrix)
 
 	//1行目を出力する。
-	fmt.Printf("%s\n", getMDMatrixLine(matrix[0], maxWordSizes))
+	fmt.Println(getMDMatrixLine(matrix[0], maxWordSizes))
 
 	//2行目を出力する。
-	fmt.Printf("%s\n", getMDM2ndLine("left", maxWordSizes))
+	fmt.Println(getMDM2ndLine("left", maxWordSizes))
+
+	//3行目以降(データ行)を出力する
+	for _, line := range getMDMDataLines(matrix, maxWordSizes) {
+		fmt.Println(line)
+	}
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -126,5 +127,45 @@ func TestGetMDM2ndLine_Center(t *testing.T) {
 
 	if actual != expected {
 		t.Errorf("マークダウンの表の二行目の出力が間違っている. matrixType=\"%s\", expected=\"%s\", actual=\"%s\"", matrixType, expected, actual)
+	}
+}
+
+func TestGetMDMDataLines(t *testing.T) {
+	input := [][]string{{"menu", "price"}, {"melon", "50000"}, {"apple", "100"}}
+	maxWordSizes := []int{5, 5}
+	var actual []string
+	actual = getMDMDataLines(input, maxWordSizes)
+	expected := []string{"| melon | 50000 |", "| apple | 100   |"}
+
+	if actual[0] != expected[0] || actual[1] != expected[1] {
+		t.Errorf("マークダウンのデータ行の出力が間違っている. expected=\"%s\", actual=\"%s\"", expected, actual)
+	}
+}
+
+func Test_getMDMDataLines(t *testing.T) {
+	type args struct {
+		input        [][]string
+		maxWordSizes []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []string
+	}{
+		{
+			name: "マークダウンのデータ行の出力が間違っている",
+			args: args{
+				input:        [][]string{{"menu", "price"}, {"melon", "50000"}, {"apple", "100"}},
+				maxWordSizes: []int{5, 5},
+			},
+			want: []string{"| melon | 50000 |", "| apple | 100   |"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getMDMDataLines(tt.args.input, tt.args.maxWordSizes); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getMDMDataLines() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
