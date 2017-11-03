@@ -9,6 +9,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"unicode/utf8"
 )
 
 // やりかた
@@ -63,8 +64,8 @@ func getCol(matrix [][]string, index int) []string {
 func getMaxWordSize(words []string) int {
 	max := 0
 	for i := 0; i < len(words); i++ {
-		if len(words[i]) > max {
-			max = len(words[i])
+		if utf8.RuneCountInString(words[i]) > max {
+			max = utf8.RuneCountInString(words[i])
 		}
 	}
 	return max

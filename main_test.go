@@ -19,7 +19,7 @@ func TestParseCsv(t *testing.T) {
 }
 
 func TestGetMaxWordSizes(t *testing.T) {
-	input := [][]string{{"menu", "price"}, {"melon", "123456789"}}
+	input := [][]string{{"menu", "price"}, {"melon", "123456789"}, {"りんご", "123"}}
 	var actual []int
 	actual = getMaxWordSizes(input)
 
