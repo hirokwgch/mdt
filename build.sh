@@ -1,6 +1,6 @@
 # available $GOOS and $GOARCH
 # https://golang.org/doc/install/source#environment
-MDT_VERSION=1.0.0
+MDT_VERSION=1.0.1
 
 mkdir archive 2> /dev/null
 
